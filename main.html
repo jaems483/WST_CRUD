@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class List</title>
+    
+    <link rel="stylesheet" href="home.css">
+
+    <script>
+        function add_form() {
+            document.getElementById("add_myForm").style.display = "flex";
+            document.getElementById("add_myForm").style.flexDirection = "column";
+        }
+        function del_form() {
+            document.getElementById("del_myForm").style.display = "flex";
+            document.getElementById("del_myForm").style.flexDirection = "column";
+        }
+        function edit_form() {
+            document.getElementById("edit_myForm").style.display = "flex";
+            document.getElementById("edit_myForm").style.flexDirection = "column";
+        }
+
+        function close_add_form() {
+            document.getElementById("add_myForm").style.display = "none";
+        }
+    </script>
+
+    
+
+</head>
+<body onload="location.href='./main.php?load=true'">
+    <h1>3BG2 STUDENT LIST</h1>
+        <div class="menu">
+            <ul>
+                <button class="open_addform" onclick="add_form()">ADD</button>
+                <button class="open_delform" onclick="del_form()">DELETE</button>
+                <button class="open_editform" onclick="edit_form()">EDIT</button>
+            </ul>
+        </div>
+        <div id="users_list">
+        </div>
+        <script>
+            window.onload = function() {
+                fetch('main.php?load=true')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('users_list').innerHTML = data;
+                })
+                .catch(error => console.error('Error fetching data:', error));
+            }
+        </script>
+
+    <div class="addform" id="add_myForm" style="display: none;">
+        <h1>ADD USER</h1>
+        <form action="./home.php">
+            <input type="number" name="user_ID" id="ID" placeholder="USER ID" required>
+            <input type="text" name="user_Name" id="NAME" placeholder="FULLNAME" required>
+            <select name="user_Course" id="COURSE">
+                <option value="BSIT">BSIT</option>
+                <option value="BSIS">BSIS</option>
+                <option value="BSCS">BSCS</option>
+            </select>
+            <input type="text" value="true" name="add" style="display: none;">
+            <button type="submit" onclick="close_add_form">CONFIRM</button>
+        </form>
+        <a href=""><button id="CANCEL" name="cancel_Button" onclick="close_add_form()">CANCEL</button></a>
+    </div>
+
+    <div class="delform" id="del_myForm" style="display: none;">
+        <h1>DELETE USER</h1>
+        <form action="./home.php">
+            <input type="number" name="user_ID" id="ID" placeholder="USER ID" required>
+            <button type="submit" onclick="close_del_form">CONFIRM</button>
+            <input type="text" value="true" name="del" style="display: none;">
+        </form>
+        <a href=""><button id="CANCEL" name="cancel_Button" onclick="close_del_form()">CANCEL</button></a>
+
+    </div>
+
+    <div class="editform" id="edit_myForm" style="display: none;">
+        <h1>EDIT USER</h1>
+        <form action="./home.php">
+                <input type="number" name="user_ID" id="ID" placeholder="USER ID" required>
+                <input type="text" name="user_Name" id="NAME" placeholder="NEW FULLNAME" required>
+                <select name="user_Course" id="COURSE">
+                    <option value="BSIT">BSIT</option>
+                    <option value="BSIS">BSIS</option>
+                    <option value="BSCS">BSCS</option>
+                </select>
+                <button type="submit" onclick="close_edit_form">CONFIRM</button>
+                <input type="text" value="true" name="edit" style="display: none;">
+        </form>
+        <a href=""><button id="CANCEL" name="cancel_Button" onclick="close_edit_form()">CANCEL</button></a>
+    </div>
+    
+</body>
+</html>
