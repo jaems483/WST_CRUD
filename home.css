@@ -1,0 +1,173 @@
+html, body{
+    margin: 0%;
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background: linear-gradient(-45deg, #e97450, #e98e18, #c7ebec, #b1afaf,#f1b19e, #d37b32, #e97450, #e2a14c);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.logo_holder {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%
+}
+
+.cict_logo {
+    width: 10vw;
+    margin: 20px;
+}
+
+.bulsu_logo {
+    width: 10vw;
+    margin: 20px;
+}
+
+button{
+    background-color: #ffffff;
+}
+
+.options {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+}
+
+.logout, .admin_show, .about_us {
+    top: 0px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+table{
+    color: #000000;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 3em;
+}
+
+.admin_list {
+    width: 50vw;
+}
+
+.admin_list #close,.about_us_frame #close{
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    margin: 10px;
+    font-weight: 800;
+}
+
+.admin_list #close:hover, .about_us_frame #close:hover{
+    background-color: #ff0000;
+    scale: 1.05;
+}
+
+.about_us_frame p {
+    text-align: left;
+}
+
+.about_us_frame img {
+    width: 10vw;
+    border-radius: 50%;
+}
+
+.addform, .editform, .delform, .admin_list, .about_us_frame{
+    position: fixed;
+    z-index: 9;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    text-align: center;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 30vw;
+}
+
+form button, form input, form select, #CANCEL{
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+}
+
+#CANCEL {
+    width: 97%;
+}
+
+#CANCEL:hover {
+    background-color: rgb(219, 0, 0);
+    scale: 1.05;
+}
+
+form button:hover, .options button:hover{
+    scale: 1.05;
+}
+
+.menu {
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+ul {
+    display: flex;
+    justify-content: center;
+}
+
+ul button {
+    margin: 0px 100px;
+    width: 10vw;
+    height: 5vh;
+    border-radius: 10px;
+}
+
+ul button:hover {
+    scale: 1.1;
+}
+
+#users_list {
+    padding: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scrollbar-color: rgb(255, 255, 255);
+    scrollbar-base-color: rgb(255, 255, 255);
+    height: 50vh;
+    backdrop-filter: blur(10px);
+    border: 3px solid rgb(255, 255, 255);
+    width: 70vw;
+    text-align: center;
+}
+
+table td {
+    border: 1px solid rgb(255, 255, 255);
+    padding: 20px;
+    width: 70vw;
+}

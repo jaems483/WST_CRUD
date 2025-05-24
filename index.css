@@ -1,0 +1,175 @@
+body,html {
+    padding: 0%;
+    margin: 0%;
+
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-family: cursive;
+    
+    scrollbar-width: none;
+    height: 70vh;
+}
+
+body {
+    background: linear-gradient(-45deg, #e97450, #e98e18, #c7ebec, #b1afaf,#f1b19e, #d37b32, #e97450, #e98e18);
+	background-size: 400% 400%;
+	animation: gradient 10s ease-in infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.logo_holder {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 0px;
+    width: 100%
+}
+
+.cict_logo {
+    width: 10vw;
+    margin: 20px;
+}
+
+.bulsu_logo {
+    width: 10vw;
+    margin: 20px;
+}
+
+.login_form {
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border-radius: 5px;
+    height: 90vh;
+    justify-content: center;
+    width: 25vw;
+}
+
+.title_frame {
+    position: absolute;
+    white-space: nowrap;
+    transform: rotate3d(0, 0, 120, 320deg);
+    width: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.title_frame1 {
+    position: absolute;
+    white-space: nowrap;
+    transform: rotate3d(0, 0, 120, 320deg);
+    margin-top: 200px;
+    width: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.title_frame2 {
+    position: absolute;
+    white-space: nowrap;
+    transform: rotate3d(0, 0, 120, 320deg);
+    margin-bottom: 200px;
+    width: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+@keyframes moveText {
+    100% { transform: translateX(100%); }
+    0% { transform: translateX(-100%); }
+}
+
+#title {
+    display: absolute;
+    font-size: 6em;
+    animation: moveText 4s alternate infinite;
+}
+
+#title1 {
+    display: absolute;
+    font-size: 6em;
+    animation: moveText 8s linear infinite;
+}
+
+#title2 {
+    display: absolute;
+    font-size: 6em;
+    animation: moveText 7s alternate-reverse infinite;
+}
+
+.login_form h1 {
+    backdrop-filter: blur(10px);
+    margin: 0px;
+    padding: 20px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    text-align: center;
+    font-size: 5em;
+    z-index: 1;
+}
+
+.login_form form {
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    z-index: 1;
+}
+
+.login_form input, #s_form {
+    width: 50%;
+    border-radius: 5px;
+}
+.inputs{
+    text-align: center;
+}
+.login_button {
+    text-align: center;
+    width: 50%;
+}
+
+button, input {
+    background-color: #ffffff;
+}
+
+.login_button input:hover, #s_form:hover{
+    background-color: #bbfffc;
+}
+
+#s_form {
+    width: 20%;
+}
+
+.add_admin {
+    position: fixed;
+    flex-direction: column;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: rgba(20, 30, 50, 0.95);
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
