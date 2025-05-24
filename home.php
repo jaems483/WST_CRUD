@@ -14,6 +14,7 @@
             $user = $_GET['user'];
             $dom = new DOMDocument();
             $dom->load('admin.xml');
+                
     
             foreach($dom->getElementsByTagName('admins') as $root){
                 foreach($root->getElementsByTagName('admin') as $admin){
@@ -23,7 +24,7 @@
                 }
             }
             $saved = $dom->save('admin.xml');
-            if ($saved){
+            if ($saved && $delete){
                 echo '<script>alert("Admin Deleted!")</script>';
                 sleep(2);
             }
@@ -34,30 +35,45 @@
             $id = $_GET['user_ID'];
             $name = $_GET['user_Name'];
             $course = $_GET['user_Course'];
+            $duplicate = false;
     
             $dom = new DOMDocument();
             $dom->load('users.xml');
-    
-            $student = $dom->createElement('student');
-            $uid = $dom->createElement('ID', $id);
-            $uname = $dom->createElement('NAME', $name);
-            $ucourse = $dom->createElement('COURSE', $course);
-    
-            $student->appendChild($uid);
-            $student->appendChild($uname);
-            $student->appendChild($ucourse);
-    
-            $root = $dom->getElementsByTagName('students')->item(index:0);
-            $root->appendChild($student);
-    
-            $saved = $dom->save('users.xml');
-            if ($saved){
-                echo ("<script>alert('New User Added!')</script>");
+
+            foreach($dom->getElementsByTagName('student') as $root){
+                if($id == $root->getElementsByTagName('ID')->item(0)->nodeValue){
+                    $duplicate = true;
+                    break;
+                }
+            }
+
+            if(!$duplicate){
+                $student = $dom->createElement('student');
+                $uid = $dom->createElement('ID', $id);
+                $uname = $dom->createElement('NAME', $name);
+                $ucourse = $dom->createElement('COURSE', $course);
+        
+                $student->appendChild($uid);
+                $student->appendChild($uname);
+                $student->appendChild($ucourse);
+        
+                $root = $dom->getElementsByTagName('students')->item(index:0);
+                $root->appendChild($student);
+        
+                $saved = $dom->save('users.xml');
+                if ($saved){
+                    echo ("<script>alert('New User Added!')</script>");
+                }
+            }
+            else {
+                echo ("<script>alert('User ID already exists!')</script>");
             }
         }
     
         if (isset($_GET['edit']) || isset($_GET['del'])){
             $id = $_GET['user_ID'];
+            $found = false;
+
             if(isset($_GET['edit'])){
                 $name = $_GET['user_Name'];
                 $course = $_GET['user_Course'];
@@ -73,15 +89,25 @@
                         $new_Course = $dom->createElement('COURSE', $course);
                         $student->replaceChild($new_Name, $student->getElementsByTagName('NAME')->item(0));
                         $student->replaceChild($new_Course, $student->getElementsByTagName('COURSE')->item(0));
+                        $found = true;
                     }
                     else if(isset($_GET['del']) && $id == $student->getElementsByTagName('ID')->item(index:0)->nodeValue){
                         $root->removeChild($student);
+                        $found = true;
                     }
                 }
             }
             $saved = $dom->save('users.xml');
             if ($saved){
-                echo '<script>alert("User Updated!")</script>';
+                if(isset($_GET['del']) && $found){
+                    echo '<script>alert("User Deleted!")</script>';
+                }
+                else if(isset($_GET['edit']) && $found){
+                    echo '<script>alert("User Updated!")</script>';
+                }
+                else {
+                    echo '<script>alert("User Not Found!")</script>';
+                }
             }
         }
     ?>
