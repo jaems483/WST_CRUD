@@ -24,9 +24,8 @@
                 }
             }
             $saved = $dom->save('admin.xml');
-            if ($saved && $delete){
+            if ($saved){
                 echo '<script>alert("Admin Deleted!")</script>';
-                sleep(2);
             }
             header('location: home.php');
         }
@@ -68,6 +67,7 @@
             else {
                 echo ("<script>alert('User ID already exists!')</script>");
             }
+            header('location: home.php');
         }
     
         if (isset($_GET['edit']) || isset($_GET['del'])){
@@ -109,6 +109,7 @@
                     echo '<script>alert("User Not Found!")</script>';
                 }
             }
+            header('location: home.php');
         }
     ?>
 
@@ -158,7 +159,12 @@
 
     </div>
 
-    <h1>3BG2 STUDENT LIST</h1>
+    <h1>STUDENT LIST</h1>
+    
+    <div class="search_frame">
+        <input type="text" name="search" id="search_bar" placeholder="Search ..." onkeyup="search_user()">
+    </div>
+
         <div class="menu">
             <ul>
                 <button class="open_addform" onclick="add_form()">ADD</button>
@@ -172,16 +178,31 @@
             
             $dom = new DOMDocument();
             $dom->load("users.xml");
-    
+
+            $arr = [];
+
             foreach($dom->getElementsByTagName("student") as $data){
-                $str .= "<tr>";
-                    $str .= "<td>" . $data->getElementsByTagName("ID")->item(0)->nodeValue . "</td>";
-                    $str .= "<td>" . $data->getElementsByTagName("NAME")->item(0)->nodeValue . "</td>";
-                    $str .= "<td>" . $data->getElementsByTagName("COURSE")->item(0)->nodeValue . "</td>";
+                $id = $data->getElementsByTagName("ID")->item(0)->nodeValue;
+                $name = $data->getElementsByTagName("NAME")->item(0)->nodeValue;
+                $course = $data->getElementsByTagName("COURSE")->item(0)->nodeValue;
+                $arr[] = [
+                    'ID' => $id,
+                    'NAME' => $name,
+                    'COURSE' => $course
+                ];
+            }
+            usort($arr, function($a, $b) {
+                    return $a['ID'] <=> $b['ID'];
+                }
+            );
+            foreach($arr as $data){
+                $str .= "<tr id='results'>";
+                    $str .= "<td>" . $data['ID'] . "</td>";
+                    $str .= "<td>" . $data['NAME'] . "</td>";
+                    $str .= "<td>" . $data['COURSE'] . "</td>";
                 $str .= "</tr>";
             }
             $str .= "</table>";
-    
             echo $str;
         ?>
         </div>
@@ -189,7 +210,7 @@
     <div class="addform" id="add_myForm" style="display: none;">
         <h1>ADD USER</h1>
         <form action="./home.php">
-            <input type="number" name="user_ID" id="ID" placeholder="USER ID" required>
+            <input type="number" name="user_ID" id="ID" placeholder="USER ID" required minlength="10">
             <input type="text" name="user_Name" id="NAME" placeholder="FULLNAME" required>
             <select name="user_Course" id="COURSE">
                 <option value="BSIT">BSIT</option>
