@@ -10,6 +10,7 @@
         if(isset($_POST['username']) && isset($_POST['password'])){
             $username = $_POST['username'];
             $password = $_POST['password'];
+            $logged = false;
 
             $dom = new DOMDocument();
             $dom->load('admin.xml');
@@ -18,16 +19,19 @@
                 $pass = $admin->getElementsByTagName('password')->item(0)->nodeValue;
 
                 if($user == $username && $pass == $password){
+                    $logged = true;
                     header('location: home.php');
                     exit();
                 }
             }
-            echo "<script>alert('Invalid Username or Password!')</script>";
+            if(!$logged){
+                echo "<script>alert('Invalid Username or Password')</script>";
+            }
         }
 
-        if(isset($_GET['add_user']) && isset($_GET['add_pass'])){
-            $n_user = $_GET['add_user'];
-            $n_pass = $_GET['add_pass'];
+        if(isset($_POST['add_user']) && isset($_POST['add_pass'])){
+            $n_user = $_POST['add_user'];
+            $n_pass = $_POST['add_pass'];
             $duplicate = false;
 
             $dom = new DOMDocument();
@@ -44,7 +48,6 @@
 
             if($duplicate){
                 echo ("<script>alert('Username already exists!')</script>");
-                sleep(2);
             }
             else {
                 $admin = $dom->createElement('admin');
@@ -57,25 +60,23 @@
                 $saved = $dom->save('admin.xml');
                 if ($saved){
                     echo ("<script>alert('New Admin Added!')</script>");
-                    sleep(2);
                 }
             }
-            
+            sleep(2);
             header('location: index.php');
-
         }
 
     ?>
 </head>
 <body>
     <div class="title_frame">
-        <h1 id="title">3BG2</h1>
+        <h1 id="title">MANAGEMENT</h1>
     </div>
     <div class="title_frame1">
-        <h1 id="title1">BUSINESS ANALYTICS</h1>
+        <h1 id="title1">SYSTEM</h1>
     </div>
     <div class="title_frame2">
-        <h1 id="title2">CLASS LIST</h1>
+        <h1 id="title2">STUDENT</h1>
     </div>
 
     <div class="logo_holder">
@@ -87,8 +88,8 @@
     <div id="login_form" class="login_form">
         <h1>LOGIN</h1>
         <form method="POST">
-            <input type="text" id="username" name="username" placeholder="USERNAME" style="text-align: center;"><br>
-            <input type="password" id="password" name="password" placeholder="PASSWORD" style="text-align: center;">
+            <input type="text" id="username" name="username" placeholder="USERNAME" style="text-align: center;" required><br>
+            <input type="password" id="password" name="password" placeholder="PASSWORD" style="text-align: center;" required>
             <br><br>
             <div class="login_button">
                 <input type="submit" value="Login">
@@ -100,10 +101,10 @@
 
     <div class="add_admin" style="display: none;">
         <h1>ADD ADMIN</h1>
-        <form>
+        <form method="post">
             <div>
-                <input type="text" id="add_user" name="add_user" placeholder="USERNAME" style="text-align: center;"><br>
-                <input type="password" id="add_pass" name="add_pass" placeholder="PASSWORD" style="text-align: center;">
+                <input type="text" id="add_user" name="add_user" placeholder="USERNAME" style="text-align: center;" required><br>
+                <input type="password" id="add_pass" name="add_pass" placeholder="PASSWORD" style="text-align: center;" minlength="8" required>
             </div>
             <br><br>
             <input id="add" type="submit" value="SUBMIT">
