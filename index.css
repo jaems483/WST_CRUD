@@ -99,19 +99,19 @@ body {
 #title {
     display: absolute;
     font-size: 6em;
-    animation: moveText 4s alternate infinite;
+    animation: moveText 20s linear infinite;
 }
 
 #title1 {
     display: absolute;
     font-size: 6em;
-    animation: moveText 8s linear infinite;
+    animation: moveText 21s linear infinite;
 }
 
 #title2 {
     display: absolute;
     font-size: 6em;
-    animation: moveText 7s alternate-reverse infinite;
+    animation: moveText 19s linear infinite;
 }
 
 .login_form h1 {
